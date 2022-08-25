@@ -3,9 +3,27 @@ import React, { useState } from "react";
 import { urlFor } from "../sanity";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Currency from "react-currency-formatter";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToBasket,
+  removeFromBasket,
+  selectBasketItems,
+  selectBasketItemsWithId,
+} from "../features/basketSlice";
 
 const DishRow = ({ id, name, description, price, image }) => {
   const [isPressed, setIsPressed] = useState();
+  const items = useSelector((state) => selectBasketItemsWithId(state, id));
+  const dispatch = useDispatch();
+
+  const addItemToBasket = () => {
+    dispatch(addToBasket({ id, name, image, description, price }));
+  };
+  const removeItemFromBasket = () => {
+    if (!items.length > 0) return;
+    dispatch(removeFromBasket({ id }));
+  };
+
   return (
     <>
       <TouchableOpacity
@@ -53,21 +71,26 @@ const DishRow = ({ id, name, description, price, image }) => {
           style={{
             flexDirection: "row",
             backgroundColor: "white",
-            marginLeft: 15,
           }}
         >
-          <TouchableOpacity>
-            <FontAwesome5 name="minus-circle" size={30} color="grey" />
+          <TouchableOpacity
+            onPress={removeItemFromBasket}
+            style={{ marginLeft: 12 }}
+            disabled={!items.length}
+          >
+            <FontAwesome5
+              name="minus-circle"
+              size={30}
+              color={items.length > 0 ? "#00BBCC" : "#dedede"}
+            />
           </TouchableOpacity>
           <Text
             style={{ fontSize: 23, alignSelf: "center", marginHorizontal: 12 }}
           >
-            0
+            {items.length}
           </Text>
-          <TouchableOpacity
-          //   onPress={() => setQuantity(quantity++)}
-          >
-            <FontAwesome5 name="plus-circle" size={30} color="#85c997" />
+          <TouchableOpacity onPress={addItemToBasket}>
+            <FontAwesome5 name="plus-circle" size={30} color="#00BBCC" />
           </TouchableOpacity>
         </View>
       )}
