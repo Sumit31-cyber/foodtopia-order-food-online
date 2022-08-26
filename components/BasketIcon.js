@@ -15,60 +15,64 @@ const BasketIcon = () => {
   const items = useSelector(selectBasketItems);
   const navigation = useNavigation();
   const basketTotal = useSelector(selectBasketTotal);
+
+  if (items.length == 0) return null;
   return (
-    <View style={{ marginHorizontal: 20 }}>
-      <TouchableOpacity
-        style={{
-          position: "absolute",
-          width: "100%",
-          padding: 15,
-          zIndex: 50,
-          backgroundColor: "#00BBCC",
-          borderRadius: 10,
-          bottom: 50,
-        }}
-      >
-        <TouchableOpacity
+    <TouchableOpacity onPress={() => navigation.navigate("Basket")}>
+      <View style={{ marginHorizontal: 20 }}>
+        <View
           style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
+            position: "absolute",
+            width: "100%",
+            padding: 15,
+            zIndex: 50,
+            backgroundColor: "#00BBCC",
+            borderRadius: 10,
+            bottom: 50,
           }}
         >
-          <Text
+          <View
             style={{
-              color: "white",
-              fontSize: 18,
-              backgroundColor: "#0096a3",
-              padding: 8,
-              fontWeight: "bold",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
             }}
           >
-            {items.length}
-          </Text>
-          <Text
-            style={{
-              color: "white",
-              fontWeight: "600",
-              letterSpacing: 1,
-              fontSize: 18,
-            }}
-          >
-            View Basket
-          </Text>
-          <Text
-            style={{
-              color: "white",
-              fontSize: 18,
-              padding: 8,
-              fontWeight: "800",
-            }}
-          >
-            <Currency quantity={basketTotal} currency="INR" />
-          </Text>
-        </TouchableOpacity>
-      </TouchableOpacity>
-    </View>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 18,
+                backgroundColor: "#0096a3",
+                padding: 8,
+                fontWeight: "bold",
+              }}
+            >
+              {items.length}
+            </Text>
+            <Text
+              style={{
+                color: "white",
+                fontWeight: "600",
+                letterSpacing: 1,
+                fontSize: 18,
+              }}
+            >
+              View Basket
+            </Text>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 18,
+                padding: 8,
+                fontWeight: "800",
+              }}
+            >
+              <Currency quantity={basketTotal} currency="INR" />
+            </Text>
+          </View>
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 };
 
