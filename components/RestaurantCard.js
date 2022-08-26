@@ -77,7 +77,7 @@ const RestaurantCard = ({
             color="grey"
             opacity={0.5}
           />
-          <Text style={{ color: "grey", opacity: "0.7" }}>
+          <Text style={{ color: "grey", opacity: "0.7", maxWidth: 220 }}>
             {"   "}
             Nearby • {address}
           </Text>

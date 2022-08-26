@@ -37,7 +37,7 @@ const BasketScreen = () => {
     setGroupedItemsInBasket(groupedItems);
   }, [items]);
 
-  console.log(groupedItemsInBasket);
+  // console.log(groupedItemsInBasket);
 
   return (
     <SafeAreaView style={{ backgroundColor: "white", flex: 1 }}>
